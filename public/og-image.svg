@@ -1,0 +1,48 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#080817"/>
+  <rect x="72" y="64" width="1056" height="502" rx="28" fill="#0F172A" stroke="#334155"/>
+  <rect x="72" y="64" width="1056" height="62" rx="28" fill="#111827"/>
+  <circle cx="112" cy="95" r="8" fill="#F87171"/>
+  <circle cx="138" cy="95" r="8" fill="#FBBF24"/>
+  <circle cx="164" cy="95" r="8" fill="#34D399"/>
+  <text x="214" y="102" fill="#CBD5E1" font-family="Inter,Arial,sans-serif" font-size="22">AiOrchestration workflow canvas</text>
+  <text x="84" y="616" fill="#64748B" font-family="Inter,Arial,sans-serif" font-size="22">AI Agent Orchestration for GPT-4o, Claude, Gemini, webhooks, Slack, email, and real-time costs</text>
+  <path d="M257 260 C365 260 352 317 461 317" stroke="url(#line)" stroke-width="5" stroke-dasharray="14 14"/>
+  <path d="M585 317 C710 317 694 260 821 260" stroke="url(#line)" stroke-width="5" stroke-dasharray="14 14"/>
+  <path d="M861 315 C920 365 956 414 1015 468" stroke="url(#line)" stroke-width="5" stroke-dasharray="14 14"/>
+  <rect x="132" y="201" width="228" height="118" rx="18" fill="#111827" stroke="#475569"/>
+  <rect x="167" y="232" width="42" height="42" rx="12" fill="url(#cyan)"/>
+  <text x="226" y="251" fill="white" font-family="Inter,Arial,sans-serif" font-size="24" font-weight="700">Webhook</text>
+  <text x="226" y="282" fill="#94A3B8" font-family="Inter,Arial,sans-serif" font-size="17">new support email</text>
+  <rect x="448" y="258" width="244" height="118" rx="18" fill="#111827" stroke="#6366F1"/>
+  <rect x="483" y="289" width="42" height="42" rx="12" fill="url(#violet)"/>
+  <text x="542" y="308" fill="white" font-family="Inter,Arial,sans-serif" font-size="24" font-weight="700">Claude node</text>
+  <text x="542" y="339" fill="#94A3B8" font-family="Inter,Arial,sans-serif" font-size="17">intent + urgency</text>
+  <rect x="778" y="201" width="228" height="118" rx="18" fill="#111827" stroke="#F59E0B"/>
+  <rect x="813" y="232" width="42" height="42" rx="12" fill="url(#amber)"/>
+  <text x="872" y="251" fill="white" font-family="Inter,Arial,sans-serif" font-size="24" font-weight="700">Branch</text>
+  <text x="872" y="282" fill="#94A3B8" font-family="Inter,Arial,sans-serif" font-size="17">refund, bug, sales</text>
+  <rect x="846" y="426" width="228" height="92" rx="18" fill="#064E3B" stroke="#10B981"/>
+  <text x="886" y="462" fill="#D1FAE5" font-family="Inter,Arial,sans-serif" font-size="22" font-weight="700">Run cost</text>
+  <text x="886" y="495" fill="white" font-family="Inter,Arial,sans-serif" font-size="32" font-weight="800">$0.034</text>
+  <text x="132" y="474" fill="white" font-family="Inter,Arial,sans-serif" font-size="64" font-weight="900">AI Agent Orchestration</text>
+  <text x="132" y="524" fill="#C4B5FD" font-family="Inter,Arial,sans-serif" font-size="34" font-weight="700">Visual workflows. Real logs. Clear API costs.</text>
+  <defs>
+    <linearGradient id="line" x1="132" x2="1074" y1="260" y2="468" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#22D3EE"/>
+      <stop offset="1" stop-color="#8B5CF6"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="167" y1="232" x2="209" y2="274" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#06B6D4"/>
+      <stop offset="1" stop-color="#2563EB"/>
+    </linearGradient>
+    <linearGradient id="violet" x1="483" y1="289" x2="525" y2="331" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#4F46E5"/>
+    </linearGradient>
+    <linearGradient id="amber" x1="813" y1="232" x2="855" y2="274" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F59E0B"/>
+      <stop offset="1" stop-color="#F97316"/>
+    </linearGradient>
+  </defs>
+</svg>

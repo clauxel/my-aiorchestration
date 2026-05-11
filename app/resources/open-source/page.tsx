@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Open Source AI Agent Orchestration – Guide 2025",
+  title: "Open Source AI Agent Orchestration - Guide 2026",
   description:
     "Complete guide to open-source AI agent orchestration: when to choose OSS vs. commercial, self-hosting costs, top frameworks, and step-by-step setup.",
 };

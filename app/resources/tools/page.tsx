@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "AI Agent Orchestration Tools Comparison 2025",
+  title: "AI Agent Orchestration Tools Comparison 2026",
   description:
     "Compare the top AI agent orchestration tools: AiOrchestration vs LangChain vs AutoGen vs CrewAI vs Zapier. Side-by-side feature tables, pros, cons, and pricing.",
 };
@@ -21,7 +21,7 @@ const tools = [
       "Real-time cost monitoring",
       "Team collaboration built-in",
       "Production-ready with 99.9% SLA",
-      "50+ pre-built workflow templates",
+      "8 practical business workflow templates",
     ],
     cons: [
       "Less flexibility for custom Python code",
@@ -122,7 +122,7 @@ const comparisonFeatures = [
   { feature: "No Python required", aio: true, langchain: false, autogen: false, crewai: false, zapier: true },
   { feature: "Real-time cost monitoring", aio: true, langchain: false, autogen: false, crewai: false, zapier: false },
   { feature: "Team collaboration", aio: true, langchain: false, autogen: false, crewai: "Cloud only", zapier: true },
-  { feature: "Pre-built templates", aio: "50+", langchain: "Community", autogen: false, crewai: "Some", zapier: "7000+" },
+  { feature: "Pre-built templates", aio: "8 core", langchain: "Community", autogen: false, crewai: "Some", zapier: "7000+" },
   { feature: "Conditional branching", aio: true, langchain: true, autogen: true, crewai: "Limited", zapier: "Paths" },
   { feature: "Self-hostable", aio: false, langchain: true, autogen: true, crewai: true, zapier: false },
   { feature: "Execution history & logs", aio: "7–90 days", langchain: "Custom", autogen: "Custom", crewai: "Custom", zapier: "30 days" },
@@ -139,7 +139,7 @@ export default function ToolsPage() {
               Resources
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              AI Agent Orchestration Tools Comparison 2025
+              AI Agent Orchestration Tools Comparison 2026
             </h1>
             <p className="text-lg text-slate-400 max-w-3xl leading-relaxed">
               Choosing the right AI orchestration tool depends on your team&apos;s technical depth, workflow complexity, and scaling needs. Here&apos;s an honest breakdown of the top options.

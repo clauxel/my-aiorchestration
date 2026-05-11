@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "AI Agent Orchestration Jobs & Careers 2025",
+  title: "AI Agent Orchestration Jobs & Careers 2026",
   description:
     "Career guide for AI agent orchestration: in-demand skills, salary ranges ($120k–$200k+), job titles, companies hiring, and how to break into the field.",
 };
@@ -64,7 +64,7 @@ export default function JobsPage() {
               Resources
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              AI Agent Orchestration Jobs & Careers 2025
+              AI Agent Orchestration Jobs & Careers 2026
             </h1>
             <p className="text-lg text-slate-400 leading-relaxed max-w-3xl">
               AI agent orchestration is one of the fastest-growing specializations in tech. Demand is outpacing supply by a wide margin—engineers with orchestration expertise are commanding salaries that rival senior SWE roles at top tech companies.
@@ -73,7 +73,7 @@ export default function JobsPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
             {[
-              { value: "$140k", label: "Median AI Engineer salary (US)", sub: "Source: Levels.fyi 2025" },
+              { value: "$140k", label: "Median AI Engineer salary (US)", sub: "Recent US market benchmark" },
               { value: "340%", label: "Job posting growth in 2024", sub: "YoY for AI agent roles" },
               { value: "18k", label: "Open AI orchestration roles", sub: "On LinkedIn, Indeed, Glassdoor" },
             ].map((s) => (

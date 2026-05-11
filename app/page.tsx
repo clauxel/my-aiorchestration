@@ -8,83 +8,70 @@ const features = [
   {
     title: "Drag-and-drop Canvas",
     description:
-      "Build complex AI pipelines visually. Connect nodes with a click, rearrange steps intuitively, and see your entire workflow at a glance.",
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm10 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zm10 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" />
-      </svg>
-    ),
+      "Build complex AI pipelines visually. Connect nodes with a click, rearrange steps intuitively, and see your workflow at a glance.",
+    icon: "M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm10 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zm10 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z",
   },
   {
-    title: "Multi-model Support",
+    title: "Multi-model Nodes",
     description:
-      "Natively integrate GPT-4o, Claude 3.5 Sonnet, Gemini 1.5 Pro, Mistral, and more. Use the right model for each task in the same workflow.",
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-      </svg>
-    ),
+      "Use GPT-4o, Claude, and Gemini in the same workflow. Route cheap tasks to fast models and reserve stronger models for reasoning.",
+    icon: "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
   },
   {
-    title: "Pre-built Templates",
+    title: "8 Business Templates",
     description:
-      "Launch in minutes with 50+ battle-tested workflow templates for email triage, content creation, code review, customer support, and more.",
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm0 8a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zm12 0a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
-      </svg>
-    ),
+      "Start with useful templates for email triage, customer support, data summaries, lead routing, executive briefs, and alerts.",
+    icon: "M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm0 8a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zm12 0a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z",
   },
   {
-    title: "Conditional Logic",
+    title: "Conditional Branching",
     description:
-      "Branch your workflows based on AI output, custom rules, or external data. Handle errors gracefully with built-in fallback paths.",
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-      </svg>
-    ),
+      "Branch workflows based on confidence, cost, customer status, or model output. Retry, escalate, or send the right response.",
+    icon: "M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z",
   },
   {
-    title: "Real-time Cost Dashboard",
+    title: "Cost Dashboard",
     description:
-      "Track token usage and API spend across all models in real time. Set budget alerts and optimize your most expensive workflow steps.",
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-      </svg>
-    ),
+      "Track token usage and API spend per execution. Spot expensive nodes before they turn into a budget surprise.",
+    icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z",
   },
   {
-    title: "Team Collaboration",
+    title: "Webhook, Slack, Email",
     description:
-      "Share workflows with teammates, manage permissions, leave comments on nodes, and ship AI automations as a team—not in silos.",
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-      </svg>
-    ),
+      "Trigger workflows from webhooks and ship outputs into Slack or email without a separate automation stack.",
+    icon: "M17 8h2a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8a2 2 0 012-2h2m3-4h4m-4 0a2 2 0 104 0m-4 0v8m4-8v8",
   },
+];
+
+const templates = [
+  "Email classification and reply",
+  "Customer support conversation",
+  "Data summary to Slack",
+  "Lead enrichment and routing",
+  "Weekly executive brief",
+  "Invoice exception triage",
+  "Research digest",
+  "Incident escalation",
 ];
 
 const testimonials = [
   {
     quote:
-      "AiOrchestration cut our content production pipeline from 4 hours to 12 minutes. We went from one blog post per day to eight—with the same team.",
+      "The cost dashboard changed how we ship AI workflows. We can see exactly which node is expensive before it reaches production.",
     name: "Sarah Chen",
-    role: "Head of Content",
+    role: "Head of Operations",
     company: "Marketly",
   },
   {
     quote:
-      "We replaced three separate Python scripts with a single visual workflow. Our engineering team now spends time on features, not glue code.",
+      "We replaced three separate Python scripts with one visual workflow. Engineering now reviews the logic instead of maintaining glue code.",
     name: "Marcus Webb",
     role: "CTO",
     company: "Dataflow Systems",
   },
   {
     quote:
-      "The cost dashboard alone paid for our subscription in the first month. We were wasting 40% of our AI budget on redundant calls we didn't know about.",
+      "Our support team can update routing rules without waiting for a sprint. That is the part that finally made agent workflows stick.",
     name: "Priya Nair",
     role: "AI Product Manager",
     company: "Scaleup AI",
@@ -98,15 +85,14 @@ export default function HomePage() {
       <main>
         <HeroSection />
 
-        {/* Features */}
-        <section id="features" className="py-20 md:py-32">
+        <section id="features" className="py-20 md:py-32 border-t border-white/5">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                Everything you need to automate with AI
+                Everything a production agent workflow needs
               </h2>
               <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-                A complete platform to design, run, and monitor multi-agent workflows at any scale.
+                Design, trigger, branch, send, and monitor multi-agent workflows from one focused surface.
               </p>
             </div>
 
@@ -117,7 +103,9 @@ export default function HomePage() {
                   className="bg-slate-900 border border-indigo-500/20 rounded-2xl p-6 hover:border-indigo-500/40 transition-all hover:-translate-y-1 group"
                 >
                   <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-indigo-600/20 text-indigo-400 mb-5 group-hover:bg-indigo-600/30 transition-colors">
-                    {feature.icon}
+                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={feature.icon} />
+                    </svg>
                   </div>
                   <h3 className="text-base font-semibold text-white mb-2">{feature.title}</h3>
                   <p className="text-sm text-slate-400 leading-relaxed">{feature.description}</p>
@@ -127,18 +115,36 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Pricing */}
+        <section className="py-20 border-t border-white/5">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-10 items-start">
+              <div>
+                <h2 className="text-3xl font-bold text-white mb-4">Templates that map to real work</h2>
+                <p className="text-slate-400 leading-relaxed">
+                  The first templates are intentionally practical: the jobs teams already ask AI to do, with enough structure to become reliable workflows rather than one-off prompts.
+                </p>
+              </div>
+              <div className="grid sm:grid-cols-2 gap-3">
+                {templates.map((template) => (
+                  <div key={template} className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-slate-300">
+                    {template}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
         <PricingSection />
 
-        {/* Testimonials */}
         <section className="py-20 md:py-32 border-t border-white/5">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                Trusted by builders worldwide
+                Built for teams that care about reliability
               </h2>
               <p className="text-lg text-slate-400 max-w-xl mx-auto">
-                See how teams are shipping more with AiOrchestration.
+                The promise is simple: faster workflow launches without losing visibility into cost, logs, or ownership.
               </p>
             </div>
 
@@ -168,24 +174,20 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* CTA */}
         <section className="py-20 md:py-32">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-indigo-600/30 to-purple-600/20 border border-indigo-500/30 p-12 md:p-16">
-              <div className="absolute inset-0 -z-10">
-                <div className="absolute top-0 left-1/2 w-64 h-64 bg-indigo-600/30 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-              </div>
+            <div className="rounded-3xl overflow-hidden bg-gradient-to-br from-indigo-600/30 to-slate-900 border border-indigo-500/30 p-12 md:p-16">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                Ready to automate your first workflow?
+                Build the workflow you keep describing in meetings
               </h2>
               <p className="text-lg text-slate-300 mb-8 max-w-xl mx-auto">
-                Join 500+ teams already saving hours every day with visual AI agent orchestration.
+                Start with 50 free executions, then move into Pro annual when the workflow proves it can save real hours.
               </p>
               <Link
                 href="/pricing"
                 className="inline-block px-8 py-4 text-base font-semibold rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-lg shadow-indigo-500/25 transition-all hover:scale-[1.02]"
               >
-                Get started for free &rarr;
+                Compare plans &rarr;
               </Link>
             </div>
           </div>

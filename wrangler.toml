@@ -1,5 +1,12 @@
 name = "aiorchestration"
-compatibility_date = "2024-09-23"
+compatibility_date = "2026-05-11"
+pages_build_output_dir = "out"
 
-[site]
-bucket = "./out"
+[vars]
+APP_ORIGIN = "https://aiorchestration.space"
+CREEM_API_BASE = "https://api.creem.io"
+CREEM_ENV = "live"
+
+[[kv_namespaces]]
+binding = "ANALYTICS_KV"
+id = "3ca9f0016a974f8ca1c5ca15202d3521"

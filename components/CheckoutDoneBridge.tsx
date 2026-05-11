@@ -1,0 +1,25 @@
+"use client";
+
+import { useEffect } from "react";
+
+export default function CheckoutDoneBridge() {
+  useEffect(() => {
+    const message = { type: "aiorchestration-checkout-complete" };
+
+    try {
+      window.opener?.postMessage(message, window.location.origin);
+    } catch {}
+
+    try {
+      window.parent?.postMessage(message, window.location.origin);
+    } catch {}
+
+    const timer = window.setTimeout(() => {
+      window.location.replace("/");
+    }, 900);
+
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  return null;
+}

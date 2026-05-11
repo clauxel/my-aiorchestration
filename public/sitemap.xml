@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://aiorchestration.space/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://aiorchestration.space/pricing/</loc><priority>0.9</priority></url>
-  <url><loc>https://aiorchestration.space/resources/github/</loc><priority>0.8</priority></url>
-  <url><loc>https://aiorchestration.space/resources/tools/</loc><priority>0.8</priority></url>
-  <url><loc>https://aiorchestration.space/resources/open-source/</loc><priority>0.8</priority></url>
-  <url><loc>https://aiorchestration.space/resources/platform/</loc><priority>0.8</priority></url>
-  <url><loc>https://aiorchestration.space/resources/jobs/</loc><priority>0.7</priority></url>
-  <url><loc>https://aiorchestration.space/resources/langchain/</loc><priority>0.7</priority></url>
-  <url><loc>https://aiorchestration.space/resources/examples/</loc><priority>0.7</priority></url>
-  <url><loc>https://aiorchestration.space/resources/claude/</loc><priority>0.7</priority></url>
-  <url><loc>https://aiorchestration.space/privacy/</loc><priority>0.4</priority></url>
-  <url><loc>https://aiorchestration.space/terms/</loc><priority>0.4</priority></url>
+  <url><loc>https://aiorchestration.space/</loc><lastmod>2026-05-11</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://aiorchestration.space/pricing/</loc><lastmod>2026-05-11</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://aiorchestration.space/resources/github/</loc><lastmod>2026-05-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://aiorchestration.space/resources/tools/</loc><lastmod>2026-05-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://aiorchestration.space/resources/open-source/</loc><lastmod>2026-05-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://aiorchestration.space/resources/platform/</loc><lastmod>2026-05-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://aiorchestration.space/resources/jobs/</loc><lastmod>2026-05-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://aiorchestration.space/resources/langchain/</loc><lastmod>2026-05-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://aiorchestration.space/resources/examples/</loc><lastmod>2026-05-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://aiorchestration.space/resources/claude/</loc><lastmod>2026-05-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://aiorchestration.space/privacy/</loc><lastmod>2026-05-11</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://aiorchestration.space/terms/</loc><lastmod>2026-05-11</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
 </urlset>

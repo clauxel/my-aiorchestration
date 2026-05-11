@@ -1,59 +1,138 @@
-'use client'
+"use client";
 
 import { useEffect, useRef, useState } from "react";
+import type { BillingCycle } from "./PricingSection";
 
 interface PaymentModalProps {
   isOpen: boolean;
   onClose: () => void;
-  productUrl: string;
+  planId: string;
+  billing: BillingCycle;
   planName?: string;
   planPrice?: string;
   planPeriod?: string;
 }
 
+function trackEvent(name: string, metadata: Record<string, string>) {
+  if (typeof window !== "undefined") {
+    window.aiorchestrationTrack?.(name, metadata);
+  }
+}
+
+function centeredPopupFeatures(width = 780, height = 900) {
+  const left = Math.max(0, (window.screen.width - width) / 2);
+  const top = Math.max(0, (window.screen.height - height) / 2);
+  return `width=${width},height=${height},left=${left},top=${top},scrollbars=yes,resizable=yes`;
+}
+
+function writeLoadingPage(popup: Window | null, planName: string) {
+  if (!popup) return;
+
+  try {
+    popup.document.title = "Opening secure checkout";
+    popup.document.body.innerHTML =
+      `<main style="min-height:100vh;display:grid;place-items:center;background:#0a0a1a;color:#f8fafc;font-family:ui-sans-serif,system-ui,sans-serif;text-align:center;padding:32px">` +
+      `<section><h1 style="font-size:22px;margin:0 0 8px">Opening secure checkout...</h1>` +
+      `<p style="margin:0;color:#cbd5e1">Preparing your ${planName} payment window with Creem.</p></section></main>`;
+  } catch {}
+}
+
 export default function PaymentModal({
   isOpen,
   onClose,
-  productUrl,
+  planId,
+  billing,
   planName = "Pro",
   planPrice = "$49.5",
   planPeriod = "mo, billed annually",
 }: PaymentModalProps) {
-  const [opened, setOpened] = useState(false);
+  const [status, setStatus] = useState<"ready" | "opening" | "opened" | "error">("ready");
+  const [error, setError] = useState("");
   const backdropRef = useRef<HTMLDivElement>(null);
   const popupRef = useRef<Window | null>(null);
+  const pollRef = useRef<number | null>(null);
+
+  const closeModal = () => {
+    if (pollRef.current !== null) {
+      window.clearInterval(pollRef.current);
+      pollRef.current = null;
+    }
+    setStatus("ready");
+    setError("");
+    onClose();
+  };
 
   useEffect(() => {
-    if (!isOpen) { setOpened(false); return; }
+    if (!isOpen) return;
 
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeModal();
+    };
+    const onMessage = (event: MessageEvent) => {
+      if (event.origin !== window.location.origin) return;
+      if (event.data?.type === "aiorchestration-checkout-complete") {
+        trackEvent("checkout_success_return", { plan: planId, billing });
+        closeModal();
+        window.location.href = "/";
+      }
+    };
+
     document.addEventListener("keydown", onKey);
+    window.addEventListener("message", onMessage);
     document.body.style.overflow = "hidden";
+
     return () => {
       document.removeEventListener("keydown", onKey);
+      window.removeEventListener("message", onMessage);
       document.body.style.overflow = "";
     };
-  }, [isOpen, onClose]);
+  });
 
-  function openCheckout() {
-    const w = 780, h = 900;
-    const left = Math.max(0, (window.screen.width - w) / 2);
-    const top = Math.max(0, (window.screen.height - h) / 2);
-    const popup = window.open(
-      productUrl,
-      "creem_checkout",
-      `width=${w},height=${h},left=${left},top=${top},scrollbars=yes,resizable=yes`
-    );
+  async function openCheckout() {
+    setStatus("opening");
+    setError("");
+    trackEvent("checkout_open_start", { plan: planId, billing });
+
+    const popup = window.open("", "aiorchestration_creem_checkout", centeredPopupFeatures());
     popupRef.current = popup;
-    setOpened(true);
+    writeLoadingPage(popup, planName);
 
-    // Poll until popup closes then close modal
-    const poll = setInterval(() => {
-      if (!popup || popup.closed) {
-        clearInterval(poll);
-        onClose();
+    try {
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ planId, billing }),
+      });
+      const payload = (await response.json()) as { ok?: boolean; checkoutUrl?: string; error?: string };
+
+      if (!response.ok || !payload.ok || !payload.checkoutUrl) {
+        throw new Error(payload.error || "Checkout could not be created.");
       }
-    }, 800);
+
+      if (popup) {
+        popup.location.href = payload.checkoutUrl;
+      } else {
+        window.open(payload.checkoutUrl, "_blank", "noopener,noreferrer");
+      }
+
+      setStatus("opened");
+      trackEvent("checkout_popup_opened", { plan: planId, billing });
+
+      pollRef.current = window.setInterval(() => {
+        if (!popupRef.current || popupRef.current.closed) {
+          if (pollRef.current !== null) window.clearInterval(pollRef.current);
+          pollRef.current = null;
+          closeModal();
+        }
+      }, 900);
+    } catch (checkoutError) {
+      try {
+        popup?.close();
+      } catch {}
+      setStatus("error");
+      setError(checkoutError instanceof Error ? checkoutError.message : "Checkout could not be created.");
+      trackEvent("checkout_error", { plan: planId, billing });
+    }
   }
 
   if (!isOpen) return null;
@@ -63,12 +142,13 @@ export default function PaymentModal({
       ref={backdropRef}
       className="fixed inset-0 z-[100] flex items-center justify-center p-4"
       style={{ backdropFilter: "blur(10px)", background: "rgba(0,0,0,0.72)" }}
-      onClick={(e) => { if (e.target === backdropRef.current) onClose(); }}
+      onClick={(e) => {
+        if (e.target === backdropRef.current) closeModal();
+      }}
       aria-modal="true"
       role="dialog"
     >
       <div className="relative w-full max-w-md rounded-2xl border border-indigo-500/30 bg-slate-950 shadow-2xl shadow-black/80 overflow-hidden">
-        {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
           <div className="flex items-center gap-2">
             <svg className="w-4 h-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -77,7 +157,7 @@ export default function PaymentModal({
             <span className="text-sm font-medium text-slate-300">Secure Checkout</span>
           </div>
           <button
-            onClick={onClose}
+            onClick={closeModal}
             className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
             aria-label="Close"
           >
@@ -87,7 +167,6 @@ export default function PaymentModal({
           </button>
         </div>
 
-        {/* Plan summary */}
         <div className="px-6 py-6">
           <div className="flex items-start justify-between mb-6">
             <div>
@@ -100,7 +179,6 @@ export default function PaymentModal({
             </div>
           </div>
 
-          {/* Trust signals */}
           <div className="grid grid-cols-3 gap-3 mb-6">
             {[
               { icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z", label: "Secure payment" },
@@ -116,30 +194,45 @@ export default function PaymentModal({
             ))}
           </div>
 
-          {!opened ? (
+          {status === "ready" ? (
             <button
-              onClick={openCheckout}
+              onClick={() => void openCheckout()}
               className="w-full py-4 rounded-xl font-bold text-white text-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
               style={{ background: "linear-gradient(135deg, #6366f1, #8b5cf6)" }}
             >
-              Complete Checkout →
+              Complete Checkout -&gt;
             </button>
-          ) : (
+          ) : status === "opening" ? (
+            <div className="text-center py-3">
+              <div className="w-8 h-8 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+              <p className="text-sm text-slate-300 font-medium">Preparing secure checkout...</p>
+            </div>
+          ) : status === "opened" ? (
             <div className="text-center py-3">
               <div className="w-8 h-8 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
               <p className="text-sm text-slate-300 font-medium">Checkout window is open</p>
-              <p className="text-xs text-slate-500 mt-1">Complete your payment in the secure window. This will close automatically when done.</p>
+              <p className="text-xs text-slate-500 mt-1">Complete payment in the secure Creem window. The homepage will stay here.</p>
               <button
-                onClick={() => { popupRef.current?.focus(); }}
+                onClick={() => popupRef.current?.focus()}
                 className="mt-3 text-xs text-indigo-400 hover:text-indigo-300 underline"
               >
                 Bring checkout window to front
               </button>
             </div>
+          ) : (
+            <div className="text-center py-3">
+              <p className="text-sm text-red-300 font-medium">{error || "Checkout needs another try."}</p>
+              <button
+                onClick={() => void openCheckout()}
+                className="mt-4 w-full py-3 rounded-xl font-semibold text-white bg-indigo-600 hover:bg-indigo-500"
+              >
+                Try again
+              </button>
+            </div>
           )}
 
           <p className="text-center text-xs text-slate-600 mt-4">
-            Powered by Creem · SSL encrypted · PCI compliant
+            Powered by Creem - SSL encrypted - PCI compliant
           </p>
         </div>
       </div>

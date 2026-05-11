@@ -48,7 +48,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2 flex-shrink-0">
             <span className="text-xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-              Aiorchestration
+              AiOrchestration
             </span>
           </Link>
 
@@ -113,7 +113,7 @@ export default function Header() {
               href="/pricing"
               className="px-4 py-2 text-sm font-medium rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white transition-all"
             >
-              Get Started Free
+              Start Free
             </Link>
           </div>
 
@@ -171,7 +171,7 @@ export default function Header() {
                 onClick={() => setMobileOpen(false)}
                 className="block w-full text-center px-4 py-2.5 text-sm font-medium rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white"
               >
-                Get Started Free
+                Start Free
               </Link>
             </div>
           </div>

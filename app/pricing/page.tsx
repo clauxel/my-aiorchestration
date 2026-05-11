@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const faqItems = [
   {
     q: "Is there a free trial?",
-    a: "Every paid plan starts with a 14-day free trial. No credit card required to start. You'll only be charged at the end of the trial if you decide to continue.",
+    a: "The Free plan includes 50 executions every month. Paid checkout starts when you choose Starter, Pro, or Team.",
   },
   {
     q: "What counts as an agent execution?",
@@ -24,7 +24,7 @@ const faqItems = [
   },
   {
     q: "What AI models are supported?",
-    a: "We support OpenAI GPT-4o, GPT-4o mini, GPT-3.5 Turbo; Anthropic Claude 3.5 Sonnet, Claude 3 Haiku; Google Gemini 1.5 Pro, Gemini 1.5 Flash; Mistral Large and Medium; and any OpenAI-compatible API endpoint.",
+    a: "The MVP supports GPT-4o, Claude, and Gemini nodes. Additional OpenAI-compatible endpoints can be added for teams during onboarding.",
   },
   {
     q: "Do you offer refunds?",
@@ -46,9 +46,9 @@ const faqItems = [
 
 const comparisonRows = [
   { feature: "Active workflows", free: "1", starter: "3", pro: "Unlimited", team: "Unlimited" },
-  { feature: "Agent executions/mo", free: "500", starter: "5,000", pro: "50,000", team: "200,000" },
+  { feature: "Agent executions/mo", free: "50", starter: "500", pro: "5,000", team: "Unlimited" },
   { feature: "AI model integrations", free: "1", starter: "2", pro: "All models", team: "All models" },
-  { feature: "Pre-built templates", free: "3", starter: "10", pro: "50+", team: "50+" },
+  { feature: "Pre-built templates", free: "3", starter: "8", pro: "8 + custom copies", team: "8 + shared library" },
   { feature: "Conditional logic", free: "No", starter: "No", pro: "Yes", team: "Yes" },
   { feature: "Cost dashboard", free: "No", starter: "Basic", pro: "Full", team: "Full" },
   { feature: "Execution history", free: "1 day", starter: "7 days", pro: "30 days", team: "90 days" },

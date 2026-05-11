@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Analytics from "@/components/Analytics";
 import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://aiorchestration.space"),
   title: {
     template: "%s | AiOrchestration",
-    default: "AiOrchestration – Visual AI Agent Orchestration Platform",
+    default: "AiOrchestration - Visual AI Agent Orchestration Platform",
   },
   description:
-    "Orchestrate GPT-4o, Claude, and Gemini into powerful automated workflows with a drag-and-drop visual canvas. No code required. Join 500+ teams automating with AI agents.",
+    "Build reliable AI agent orchestration workflows with GPT-4o, Claude, and Gemini nodes, conditional branches, webhooks, Slack and email outputs, execution logs, and real-time cost tracking.",
   keywords: [
     "AI agent orchestration",
     "AI workflow automation",
@@ -26,23 +26,23 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://aiorchestration.space",
     siteName: "AiOrchestration",
-    title: "AiOrchestration – Visual AI Agent Orchestration Platform",
+    title: "AiOrchestration - Visual AI Agent Orchestration Platform",
     description:
-      "Connect GPT-4o, Claude & Gemini into powerful automated workflows. Drag-and-drop canvas, no code required.",
+      "Drag, connect, and monitor GPT-4o, Claude, and Gemini agent workflows with cost visibility built in.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "AiOrchestration Platform",
+        alt: "AiOrchestration workflow canvas and cost dashboard",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "AiOrchestration – Visual AI Agent Orchestration Platform",
+    title: "AiOrchestration - Visual AI Agent Orchestration Platform",
     description:
-      "Connect GPT-4o, Claude & Gemini into powerful automated workflows. No code required.",
+      "Drag, connect, and monitor GPT-4o, Claude, and Gemini agent workflows with cost visibility built in.",
     images: ["/og-image.png"],
   },
   alternates: {
@@ -66,28 +66,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className="h-full antialiased"
-    >
-      <head>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-AIORCHESTRATION"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-AIORCHESTRATION');
-          `}
-        </Script>
-      </head>
+    <html lang="en" className="h-full antialiased">
       <body
         className="min-h-full flex flex-col"
         style={{ background: "#0a0a1a", color: "#e2e8f0" }}
       >
+        <Analytics />
         {children}
       </body>
     </html>

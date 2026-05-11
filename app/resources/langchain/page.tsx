@@ -137,7 +137,7 @@ graph.add_edge("analyze", "report")
 graph.add_edge("report", END)
 
 app = graph.compile()
-result = app.invoke({"query": "AI agent orchestration trends 2025"})
+result = app.invoke({"query": "AI agent orchestration trends 2026"})
 print(result["report"])`}
                   </pre>
                 </div>
@@ -171,7 +171,7 @@ print(result["report"])`}
                       { s: "Real-time cost monitoring UI", lc: false, aio: true },
                       { s: "Team collaboration on workflows", lc: false, aio: true },
                       { s: "Self-hosted on your infrastructure", lc: true, aio: false },
-                      { s: "50+ pre-built templates", lc: false, aio: true },
+                      { s: "8 practical business templates", lc: false, aio: true },
                       { s: "Zero infrastructure management", lc: false, aio: true },
                     ].map((row) => (
                       <tr key={row.s}>
