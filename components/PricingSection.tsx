@@ -92,17 +92,16 @@ const plans = [
 export default function PricingSection() {
   const [isAnnual, setIsAnnual] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalProductUrl, setModalProductUrl] = useState("");
+  const [modalProps, setModalProps] = useState({ productUrl: "", planName: "", planPrice: "", planPeriod: "" });
 
-  const openModal = (planKey: string, billing: "monthly" | "annual") => {
-    const productId = PRODUCTS[planKey as keyof typeof PRODUCTS][billing];
+  const openModal = (plan: typeof plans[number], billing: "monthly" | "annual") => {
+    const productId = PRODUCTS[plan.key as keyof typeof PRODUCTS][billing];
     const url = `https://creem.io/product/${productId}`;
-    setModalProductUrl(url);
+    const price = billing === "annual" ? `$${plan.annualMonthlyPrice}` : `$${plan.monthlyPrice}`;
+    const period = billing === "annual" ? `mo, billed $${plan.annualTotal}/yr` : "mo";
+    setModalProps({ productUrl: url, planName: plan.name, planPrice: price, planPeriod: period });
     setIsModalOpen(true);
-    trackEvent("checkout_opened", {
-      plan: planKey,
-      billing_period: billing,
-    });
+    trackEvent("checkout_opened", { plan: plan.key, billing_period: billing });
   };
 
   return (
@@ -182,7 +181,7 @@ export default function PricingSection() {
                 </div>
 
                 <button
-                  onClick={() => openModal(plan.key, isAnnual ? "annual" : "monthly")}
+                  onClick={() => openModal(plan, isAnnual ? "annual" : "monthly")}
                   className={`w-full py-2.5 px-4 rounded-lg text-sm font-medium transition-all mb-6 ${
                     plan.highlight
                       ? "bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-md"
@@ -221,7 +220,7 @@ export default function PricingSection() {
       <PaymentModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        productUrl={modalProductUrl}
+        {...modalProps}
       />
     </>
   );
