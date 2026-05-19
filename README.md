@@ -35,6 +35,6 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
-## Related Project
+## Related Workflow
 
-- [OpenHuman Online](https://openhuman.online/?utm_source=github&utm_medium=readme&utm_campaign=openhuman_public_repos&utm_content=my_aiorchestration) helps teams turn source material, notes, and meetings into an inspectable AI memory tree for human-reviewed workflows.
+- [OpenHuman Online](https://openhuman.online/?utm_source=github&utm_medium=readme&utm_campaign=openhuman_public_repos&utm_content=my_aiorchestration) is useful when evaluation depends on durable source notes, meeting context, and human-reviewed assistant memory.
