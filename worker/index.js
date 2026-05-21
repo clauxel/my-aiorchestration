@@ -1,3 +1,5 @@
+import { recordAnalyticsEvents } from './analytics.js'
+import { handleNowPaymentsCheckout } from './nowpayments.js'
 const LIVE_ORIGIN = 'https://aiorchestration.space'
 const LIVE_HOST = 'aiorchestration.space'
 const ALT_HOSTS = new Set(['www.aiorchestration.space'])
@@ -96,10 +98,13 @@ function handleOptions(request) {
 }
 
 function maybeRedirectToHttps(requestUrl) {
-  if (requestUrl.protocol !== 'https:') {
-    const redirectUrl = new URL(requestUrl)
-    redirectUrl.protocol = 'https:'
-    return Response.redirect(redirectUrl.toString(), 308)
+  if (requestUrl.hostname === LIVE_HOST || ALT_HOSTS.has(requestUrl.hostname)) {
+    if (requestUrl.protocol !== 'https:' || requestUrl.hostname !== LIVE_HOST) {
+      const redirectUrl = new URL(requestUrl)
+      redirectUrl.protocol = 'https:'
+      redirectUrl.hostname = LIVE_HOST
+      return Response.redirect(redirectUrl.toString(), 301)
+    }
   }
   return null
 }
@@ -268,7 +273,7 @@ function handleRuntime(request, requestUrl) {
       defaultPlan: 'pro',
       defaultBilling: 'annual',
       annualDiscount: '50%',
-      analytics: 'first-party-kv',
+      analytics: 'cloudflare-d1',
       ts: Date.now(),
     },
     200,
@@ -294,29 +299,17 @@ async function handleAnalytics(request, env) {
   let persisted = false
 
   try {
-    if (env?.ANALYTICS_KV?.put && acceptedEvents.length) {
-      const batchId = crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`
-      const day = receivedAt.slice(0, 10)
-      const hour = receivedAt.slice(11, 13)
-      await env.ANALYTICS_KV.put(
-        `events/${day}/${hour}/${batchId}.json`,
-        JSON.stringify({
-          site: 'aiorchestration.space',
-          receivedAt,
-          country: request.headers.get('CF-IPCountry') || null,
-          accepted: acceptedEvents.length,
-          events: acceptedEvents,
-        }),
-        { expirationTtl: 60 * 60 * 24 * 180 },
-      )
-      persisted = true
-    }
+    const result = await recordAnalyticsEvents(env, acceptedEvents, {
+      siteKey: 'aiorchestration',
+      requestUrl: new URL(request.url),
+    })
+    persisted = result.persisted
   } catch (error) {
     console.log(JSON.stringify({ type: 'analytics_store_error', site: 'aiorchestration.space', message: String(error?.message || error) }))
   }
 
   console.log(JSON.stringify({ type: 'analytics', site: 'aiorchestration.space', accepted: acceptedEvents.length, persisted }))
-  return jsonResponse({ ok: true, accepted: acceptedEvents.length, persisted, store: persisted ? 'kv' : 'console' }, 202, request)
+  return jsonResponse({ ok: true, accepted: acceptedEvents.length, persisted, store: persisted ? 'd1' : 'console' }, 202, request)
 }
 
 function buildSitemapXml() {
@@ -361,6 +354,14 @@ Sitemap: ${LIVE_ORIGIN}/sitemap.xml
   return new Response(body, { status: 200, headers })
 }
 
+function noIndexNotFoundResponse(request) {
+  const headers = securityHeaders(request)
+  headers.set('Content-Type', 'text/html; charset=utf-8')
+  headers.set('Cache-Control', 'no-store')
+  headers.set('X-Robots-Tag', 'noindex, nofollow')
+  return new Response('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><title>Page not found</title></head><body><main><h1>Page not found</h1><p>This URL is not a public page for this product.</p></main></body></html>', { status: 404, headers })
+}
+
 async function fetchAsset(request, env) {
   if (!env?.SITE_ASSETS?.fetch) {
     return new Response('Cloudflare asset binding is unavailable.', {
@@ -371,6 +372,8 @@ async function fetchAsset(request, env) {
 
   const requestUrl = new URL(request.url)
   const normalizedPath = requestUrl.pathname.replace(/\/+$/, '') || '/'
+
+  if (!staticAssetPaths.has(normalizedPath) && !/\.[a-z0-9]+$/i.test(normalizedPath)) return noIndexNotFoundResponse(request)
 
   if (staticAssetPaths.has(normalizedPath)) {
     const assetUrl = new URL(request.url)
@@ -395,6 +398,18 @@ export async function handleRequest(request, env) {
   const requestUrl = new URL(request.url)
 
   if (request.method === 'OPTIONS') return handleOptions(request)
+  if (requestUrl.pathname === '/api/nowpayments-checkout') {
+    return handleNowPaymentsCheckout(request, env, {
+      plans: planCatalog,
+      defaultPlanId: 'pro',
+      siteName: 'aiorchestration',
+      siteKey: 'aiorchestration',
+      annualDiscountMultiplier: typeof ANNUAL_DISCOUNT_MULTIPLIER !== 'undefined'
+        ? ANNUAL_DISCOUNT_MULTIPLIER
+        : (typeof annualBillingMultiplier !== 'undefined' ? annualBillingMultiplier : 0.5),
+    })
+  }
+
   if (requestUrl.pathname === '/api/runtime') return handleRuntime(request, requestUrl)
   if (requestUrl.pathname === '/api/checkout') return handleCheckout(request, env, requestUrl)
   if (requestUrl.pathname === '/api/analytics/events') return handleAnalytics(request, env)
