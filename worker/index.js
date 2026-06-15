@@ -377,7 +377,7 @@ async function fetchAsset(request, env) {
 
   if (staticAssetPaths.has(normalizedPath)) {
     const assetUrl = new URL(request.url)
-    assetUrl.pathname = normalizedPath === '/' ? '/' : `${normalizedPath}/index.html`
+    assetUrl.pathname = normalizedPath === '/' ? '/' : `${normalizedPath}/`
     const assetResponse = await env.SITE_ASSETS.fetch(new Request(assetUrl.toString(), request))
     if (assetResponse.status !== 404) return withSecurityHeaders(assetResponse, request)
   }
@@ -422,6 +422,9 @@ export async function handleRequest(request, env) {
 
   if (requestUrl.pathname === '/sitemap.xml') return handleSitemap(request)
   if (requestUrl.pathname === '/robots.txt') return handleRobots(request)
+  if (request.method === 'GET' && (requestUrl.pathname === '/checkout' || requestUrl.pathname === '/checkout/')) {
+    return Response.redirect(new URL('/pricing/', requestUrl).toString(), 302)
+  }
 
   return fetchAsset(request, env)
 }

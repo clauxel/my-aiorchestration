@@ -173,10 +173,10 @@ os.environ["LANGCHAIN_PROJECT"] = "my-agent-project"
               Get production-ready AI orchestration in minutes, not weeks.
             </p>
             <Link
-              href="/pricing"
+              href="/pricing#choose-pro"
               className="inline-block px-6 py-2.5 text-sm font-semibold rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white transition-all"
             >
-              Try AiOrchestration free &rarr;
+              Start workflow &rarr;
             </Link>
           </div>
         </div>

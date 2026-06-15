@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, type MouseEvent } from "react";
 import Link from "next/link";
 
 const resourceLinks = [
@@ -18,6 +18,17 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
+
+  const chooseProAnnual = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    window.dispatchEvent(new CustomEvent("aiorchestration:choose-pro-annual"));
+    const pricing = document.getElementById("pricing");
+    if (pricing) {
+      return;
+    }
+    window.sessionStorage.setItem("aiorchestration:pending-checkout", "pro:annual");
+    window.location.href = "/pricing#pricing";
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -111,9 +122,10 @@ export default function Header() {
           <div className="hidden md:flex items-center gap-4">
             <Link
               href="/pricing"
+              onClick={chooseProAnnual}
               className="px-4 py-2 text-sm font-medium rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white transition-all"
             >
-              Start Free
+              New workflow
             </Link>
           </div>
 
@@ -168,10 +180,13 @@ export default function Header() {
             <div className="pt-3 pb-1">
               <Link
                 href="/pricing"
-                onClick={() => setMobileOpen(false)}
+                onClick={(event) => {
+                  setMobileOpen(false);
+                  chooseProAnnual(event);
+                }}
                 className="block w-full text-center px-4 py-2.5 text-sm font-medium rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white"
               >
-                Start Free
+                New workflow
               </Link>
             </div>
           </div>

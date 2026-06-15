@@ -6,7 +6,7 @@ import PricingSection from "@/components/PricingSection";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Choose the AiOrchestration plan that fits your team. Start free, upgrade when you need more. Starter from $14.5/mo, Pro from $49.5/mo, Team from $149.5/mo (billed annually).",
+    "Choose the AiOrchestration plan that fits your team. Pro annual is selected by default, with Starter from $14.5/mo, Pro from $49.5/mo, and Team from $149.5/mo when billed annually.",
 };
 
 const faqItems = [
@@ -48,7 +48,7 @@ const comparisonRows = [
   { feature: "Active workflows", free: "1", starter: "3", pro: "Unlimited", team: "Unlimited" },
   { feature: "Agent executions/mo", free: "50", starter: "500", pro: "5,000", team: "Unlimited" },
   { feature: "AI model integrations", free: "1", starter: "2", pro: "All models", team: "All models" },
-  { feature: "Pre-built templates", free: "3", starter: "8", pro: "8 + custom copies", team: "8 + shared library" },
+  { feature: "Pre-built workflow starters", free: "3", starter: "8", pro: "8 + custom copies", team: "8 + shared library" },
   { feature: "Conditional logic", free: "No", starter: "No", pro: "Yes", team: "Yes" },
   { feature: "Cost dashboard", free: "No", starter: "Basic", pro: "Full", team: "Full" },
   { feature: "Execution history", free: "1 day", starter: "7 days", pro: "30 days", team: "90 days" },
@@ -65,6 +65,15 @@ export default function PricingPage() {
     <>
       <Header />
       <main className="pt-16">
+        <section className="border-b border-white/5 py-14">
+          <div className="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
+            <h1 className="text-3xl font-bold text-white md:text-5xl">AiOrchestration pricing</h1>
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-slate-400">
+              Choose a hosted checkout path for visual agent workflows, cost monitoring, and production-ready execution history.
+            </p>
+          </div>
+        </section>
+
         <PricingSection />
 
         {/* Comparison Table */}

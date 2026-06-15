@@ -252,10 +252,10 @@ print(result)`}
               AiOrchestration makes it easy to use Claude—and any other model—in production orchestration workflows without writing a line of code.
             </p>
             <Link
-              href="/pricing"
+              href="/pricing#choose-pro"
               className="inline-block px-6 py-2.5 text-sm font-semibold rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white transition-all"
             >
-              Start free &rarr;
+              Start workflow &rarr;
             </Link>
           </div>
         </div>

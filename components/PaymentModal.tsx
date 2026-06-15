@@ -25,15 +25,16 @@ function centeredPopupFeatures(width = 780, height = 900) {
   return `width=${width},height=${height},left=${left},top=${top},scrollbars=yes,resizable=yes`;
 }
 
-function writeLoadingPage(popup: Window | null, planName: string) {
+function writeLoadingPage(popup: Window | null, planName: string, provider: "creem" | "nowpayments") {
   if (!popup) return;
 
   try {
     popup.document.title = "Opening secure checkout";
+    const providerName = provider === "nowpayments" ? "NOWPayments" : "Creem";
     popup.document.body.innerHTML =
       `<main style="min-height:100vh;display:grid;place-items:center;background:#0a0a1a;color:#f8fafc;font-family:ui-sans-serif,system-ui,sans-serif;text-align:center;padding:32px">` +
       `<section><h1 style="font-size:22px;margin:0 0 8px">Opening secure checkout...</h1>` +
-      `<p style="margin:0;color:#cbd5e1">Preparing your ${planName} payment window with Creem.</p></section></main>`;
+      `<p style="margin:0;color:#cbd5e1">Preparing your ${planName} payment window with ${providerName}.</p></section></main>`;
   } catch {}
 }
 
@@ -88,17 +89,17 @@ export default function PaymentModal({
     };
   });
 
-  async function openCheckout() {
+  async function openCheckout(provider: "creem" | "nowpayments" = "nowpayments") {
     setStatus("opening");
     setError("");
-    trackEvent("checkout_open_start", { plan: planId, billing });
+    trackEvent("checkout_open_start", { plan: planId, billing, paymentProvider: provider });
 
-    const popup = window.open("", "aiorchestration_creem_checkout", centeredPopupFeatures());
+    const popup = window.open("", provider === "nowpayments" ? "aiorchestration_nowpayments_checkout" : "aiorchestration_creem_checkout", centeredPopupFeatures());
     popupRef.current = popup;
-    writeLoadingPage(popup, planName);
+    writeLoadingPage(popup, planName, provider);
 
     try {
-      const response = await fetch("/api/checkout", {
+      const response = await fetch(provider === "nowpayments" ? "/api/nowpayments-checkout" : "/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ planId, billing }),
@@ -116,7 +117,7 @@ export default function PaymentModal({
       }
 
       setStatus("opened");
-      trackEvent("checkout_popup_opened", { plan: planId, billing });
+      trackEvent("checkout_popup_opened", { plan: planId, billing, paymentProvider: provider });
 
       pollRef.current = window.setInterval(() => {
         if (!popupRef.current || popupRef.current.closed) {
@@ -131,7 +132,7 @@ export default function PaymentModal({
       } catch {}
       setStatus("error");
       setError(checkoutError instanceof Error ? checkoutError.message : "Checkout could not be created.");
-      trackEvent("checkout_error", { plan: planId, billing });
+      trackEvent("checkout_error", { plan: planId, billing, paymentProvider: provider });
     }
   }
 
@@ -195,13 +196,21 @@ export default function PaymentModal({
           </div>
 
           {status === "ready" ? (
-            <button
-              onClick={() => void openCheckout()}
-              className="w-full py-4 rounded-xl font-bold text-white text-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
-              style={{ background: "linear-gradient(135deg, #6366f1, #8b5cf6)" }}
-            >
-              Complete Checkout -&gt;
-            </button>
+            <div className="grid gap-3">
+              <button
+                onClick={() => void openCheckout("nowpayments")}
+                className="w-full py-4 rounded-xl font-bold text-white text-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+                style={{ background: "linear-gradient(135deg, #6366f1, #8b5cf6)" }}
+              >
+                Checkout with NOWPayments -&gt;
+              </button>
+              <button
+                onClick={() => void openCheckout("creem")}
+                className="w-full py-4 rounded-xl border border-white/10 bg-slate-900 font-bold text-white text-base transition-all duration-200 hover:bg-slate-800"
+              >
+                Try card checkout
+              </button>
+            </div>
           ) : status === "opening" ? (
             <div className="text-center py-3">
               <div className="w-8 h-8 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
@@ -211,7 +220,7 @@ export default function PaymentModal({
             <div className="text-center py-3">
               <div className="w-8 h-8 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
               <p className="text-sm text-slate-300 font-medium">Checkout window is open</p>
-              <p className="text-xs text-slate-500 mt-1">Complete payment in the secure Creem window. The homepage will stay here.</p>
+              <p className="text-xs text-slate-500 mt-1">Complete payment in the secure checkout window. The homepage will stay here.</p>
               <button
                 onClick={() => popupRef.current?.focus()}
                 className="mt-3 text-xs text-indigo-400 hover:text-indigo-300 underline"
@@ -223,7 +232,7 @@ export default function PaymentModal({
             <div className="text-center py-3">
               <p className="text-sm text-red-300 font-medium">{error || "Checkout needs another try."}</p>
               <button
-                onClick={() => void openCheckout()}
+                onClick={() => void openCheckout("nowpayments")}
                 className="mt-4 w-full py-3 rounded-xl font-semibold text-white bg-indigo-600 hover:bg-indigo-500"
               >
                 Try again

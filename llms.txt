@@ -1,0 +1,21 @@
+# AiOrchestration
+
+Build reliable AI agent orchestration workflows with GPT-4o, Claude, and Gemini nodes, conditional branches, webhooks, Slack and email outputs, execution logs, and real-time cost tracking.
+
+Website: https://aiorchestration.space/
+Pricing: https://aiorchestration.space/pricing/
+Checkout: https://aiorchestration.space/checkout/
+Support: support@aigeamy.com
+Type: Hosted SaaS workflow product
+
+Problem:
+- Teams need a quotable product definition, pricing path, evidence trail, and checkout route.
+
+Solution:
+- AiOrchestration provides a hosted workflow with public pricing, structured evidence, support contact, and report or receipt outputs.
+
+Useful pages:
+- Home: https://aiorchestration.space/
+- Pricing: https://aiorchestration.space/pricing/
+- Resources: https://aiorchestration.space/resources/
+- Sitemap: https://aiorchestration.space/sitemap.xml

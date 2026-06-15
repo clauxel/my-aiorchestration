@@ -224,10 +224,10 @@ export default function JobsPage() {
               Build portfolio projects with AiOrchestration to demonstrate your orchestration skills to employers.
             </p>
             <Link
-              href="/pricing"
+              href="/pricing#choose-pro"
               className="inline-block px-6 py-2.5 text-sm font-semibold rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white transition-all"
             >
-              Start free &rarr;
+              Start workflow &rarr;
             </Link>
           </div>
         </div>

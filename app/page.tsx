@@ -18,9 +18,9 @@ const features = [
     icon: "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
   },
   {
-    title: "8 Business Templates",
+    title: "8 Workflow Starters",
     description:
-      "Start with useful templates for email triage, customer support, data summaries, lead routing, executive briefs, and alerts.",
+      "Start with useful workflow patterns for email triage, customer support, data summaries, lead routing, executive briefs, and alerts.",
     icon: "M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm0 8a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zm12 0a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z",
   },
   {
@@ -43,7 +43,7 @@ const features = [
   },
 ];
 
-const templates = [
+const workflowStarters = [
   "Email classification and reply",
   "Customer support conversation",
   "Data summary to Slack",
@@ -119,15 +119,15 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-10 items-start">
               <div>
-                <h2 className="text-3xl font-bold text-white mb-4">Templates that map to real work</h2>
+                <h2 className="text-3xl font-bold text-white mb-4">Workflow starters that map to real work</h2>
                 <p className="text-slate-400 leading-relaxed">
-                  The first templates are intentionally practical: the jobs teams already ask AI to do, with enough structure to become reliable workflows rather than one-off prompts.
+                  The first starters are intentionally practical: the jobs teams already ask AI to do, with enough structure to become reliable workflows rather than one-off prompts.
                 </p>
               </div>
               <div className="grid sm:grid-cols-2 gap-3">
-                {templates.map((template) => (
-                  <div key={template} className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-slate-300">
-                    {template}
+                {workflowStarters.map((starter) => (
+                  <div key={starter} className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-slate-300">
+                    {starter}
                   </div>
                 ))}
               </div>
@@ -181,13 +181,13 @@ export default function HomePage() {
                 Build the workflow you keep describing in meetings
               </h2>
               <p className="text-lg text-slate-300 mb-8 max-w-xl mx-auto">
-                Start with 50 free executions, then move into Pro annual when the workflow proves it can save real hours.
+                Keep Pro annual selected when the workflow proves it can save real hours.
               </p>
               <Link
-                href="/pricing"
+                href="/pricing#choose-pro"
                 className="inline-block px-8 py-4 text-base font-semibold rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-lg shadow-indigo-500/25 transition-all hover:scale-[1.02]"
               >
-                Compare plans &rarr;
+                Start workflow &rarr;
               </Link>
             </div>
           </div>

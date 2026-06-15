@@ -1,5 +1,6 @@
 "use client";
 
+import { type MouseEvent } from "react";
 import Link from "next/link";
 
 function trackEvent(name: string, props: Record<string, string>) {
@@ -26,6 +27,12 @@ const mobileSteps = [
 ];
 
 export default function HeroSection() {
+  const chooseProAnnual = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    trackEvent("cta_clicked", { location: "hero_primary", plan: "pro", billing: "annual" });
+    window.dispatchEvent(new CustomEvent("aiorchestration:choose-pro-annual"));
+  };
+
   return (
     <section className="relative overflow-hidden pt-16">
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(135deg,rgba(15,23,42,0.96)_0%,rgba(2,6,23,1)_46%,rgba(15,64,72,0.52)_100%)]" />
@@ -53,17 +60,17 @@ export default function HeroSection() {
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-8 md:mb-12">
               <Link
                 href="/pricing"
-                onClick={() => trackEvent("cta_clicked", { location: "hero_primary" })}
+                onClick={chooseProAnnual}
                 className="px-8 py-3.5 md:py-4 text-base font-semibold rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-lg shadow-indigo-500/25 transition-all hover:scale-[1.02]"
               >
-                Start with Pro annual
+                Start workflow
               </Link>
               <a
-                href="#features"
-                onClick={() => trackEvent("cta_clicked", { location: "hero_features" })}
+                href="#pricing"
+                onClick={() => trackEvent("cta_clicked", { location: "hero_review_plans" })}
                 className="px-8 py-3.5 md:py-4 text-base font-semibold rounded-xl border border-white/15 text-slate-300 hover:text-white hover:border-white/30 hover:bg-white/5 transition-all"
               >
-                See workflow templates
+                Review plans
               </a>
             </div>
 
@@ -93,7 +100,7 @@ export default function HeroSection() {
 
             <div className="grid grid-cols-3 gap-5 text-center lg:text-left">
               {[
-                { value: "8", label: "business templates" },
+                { value: "8", label: "workflow starters" },
                 { value: "$0.034", label: "sample run cost" },
                 { value: "50", label: "free runs/month" },
               ].map((stat) => (

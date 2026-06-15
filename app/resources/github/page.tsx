@@ -194,10 +194,10 @@ export default function GithubPage() {
               All these frameworks require writing code. AiOrchestration gives you the same power with a drag-and-drop canvas.
             </p>
             <Link
-              href="/pricing"
+              href="/pricing#choose-pro"
               className="inline-block px-6 py-2.5 text-sm font-semibold rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white transition-all"
             >
-              Try it free &rarr;
+              Start workflow &rarr;
             </Link>
           </div>
         </div>
