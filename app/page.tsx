@@ -135,6 +135,33 @@ export default function HomePage() {
           </div>
         </section>
 
+        <section className="py-20 border-t border-white/5">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-10 items-start">
+              <div>
+                <h2 className="text-3xl font-bold text-white mb-4">Agent orchestration planning guides</h2>
+                <p className="text-slate-400 leading-relaxed">
+                  Use the resource pages to decide when a visual graph, governed skills, budget routing, or a multi-agent mesh fits the workflow.
+                </p>
+              </div>
+              <div className="grid md:grid-cols-3 gap-4">
+                <Link href="/resources/agent-orchestration-tool/" className="rounded-2xl border border-white/10 bg-slate-900 p-5 hover:border-indigo-500/50 transition-colors">
+                  <h3 className="text-sm font-semibold text-white mb-2">Agent orchestration tool</h3>
+                  <p className="text-xs text-slate-400">Evaluate routing, governed skills, budget controls, and release evidence.</p>
+                </Link>
+                <Link href="/resources/governed-agent-skills/" className="rounded-2xl border border-white/10 bg-slate-900 p-5 hover:border-indigo-500/50 transition-colors">
+                  <h3 className="text-sm font-semibold text-white mb-2">Governed agent skills</h3>
+                  <p className="text-xs text-slate-400">Define allowed actions, blocked actions, approvals, and audit logs.</p>
+                </Link>
+                <Link href="/resources/multi-agent-mesh-decision/" className="rounded-2xl border border-white/10 bg-slate-900 p-5 hover:border-indigo-500/50 transition-colors">
+                  <h3 className="text-sm font-semibold text-white mb-2">Multi-agent mesh decision</h3>
+                  <p className="text-xs text-slate-400">Choose between a graph, mesh, queue, or single-agent workflow.</p>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <PricingSection />
 
         <section className="py-20 md:py-32 border-t border-white/5">
