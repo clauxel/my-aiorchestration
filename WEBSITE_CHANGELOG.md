@@ -8,7 +8,8 @@
   - `/resources/multi-agent-mesh-decision/`
 - Added a homepage resource section that links to the new pages without changing the homepage URL, title, H1, canonical, pricing, checkout, or core product positioning.
 - Added the new URLs to `public/sitemap.xml` with 2026-06-17 lastmod values and to the Worker public-route allowlist.
-- Verification: `npm run build` passed locally on 2026-06-17; git push and Cloudflare deployment pending.
+- Verification: `npm run build` passed locally on 2026-06-17; production smoke checks returned HTTP 200 for all three new pages and live sitemap includes the new URLs.
+- Deployment/Git status: committed and pushed to `main`; deployed to Cloudflare Worker version `415ef61f-bac7-4e9a-880a-2ed8ab807cf9`.
 
 ## 2026-05-28 15:31 CST
 - Change summary: Removed visible template residue, added SoftwareApplication/FAQ schema, added pricing-page H1, made pricing checkout CTA one-click NOWPayments, normalized NOWPayments secret handling, and configured the Worker payment secret.
