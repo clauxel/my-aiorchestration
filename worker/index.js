@@ -49,6 +49,9 @@ const indexablePaths = [
   '/resources/langchain',
   '/resources/examples',
   '/resources/claude',
+  '/resources/agent-orchestration-tool',
+  '/resources/governed-agent-skills',
+  '/resources/multi-agent-mesh-decision',
   '/privacy',
   '/terms',
 ]

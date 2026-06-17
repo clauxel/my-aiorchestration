@@ -7,7 +7,7 @@
   - `/resources/governed-agent-skills/`
   - `/resources/multi-agent-mesh-decision/`
 - Added a homepage resource section that links to the new pages without changing the homepage URL, title, H1, canonical, pricing, checkout, or core product positioning.
-- Added the new URLs to `public/sitemap.xml` with 2026-06-17 lastmod values.
+- Added the new URLs to `public/sitemap.xml` with 2026-06-17 lastmod values and to the Worker public-route allowlist.
 - Verification: `npm run build` passed locally on 2026-06-17; git push and Cloudflare deployment pending.
 
 ## 2026-05-28 15:31 CST
