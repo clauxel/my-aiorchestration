@@ -1,5 +1,5 @@
 import { recordAnalyticsEvents } from './analytics.js'
-import { handleNowPaymentsCheckout } from './nowpayments.js'
+import { handlePolarCheckout, isPolarCheckoutConfigured } from './polar.js'
 const LIVE_ORIGIN = 'https://aiorchestration.space'
 const LIVE_HOST = 'aiorchestration.space'
 const ALT_HOSTS = new Set(['www.aiorchestration.space'])
@@ -133,9 +133,9 @@ function resolvePublicAppOrigin(requestUrl) {
   return LIVE_ORIGIN
 }
 
-function resolveCreemBase(env) {
-  const raw = String(env?.CREEM_API_BASE ?? '').trim()
-  return raw ? raw.replace(/\/+$/, '') : 'https://api.creem.io'
+function resolvePolarBase(env) {
+  const raw = String(env?.POLAR_API_BASE ?? '').trim()
+  return raw ? raw.replace(/\/+$/, '') : 'https://api.polar.sh'
 }
 
 async function getSecretValue(value) {
@@ -168,11 +168,11 @@ function resolveConfiguredProductId(env, planId, billing) {
   const tier = normalizeEnvKey(planId)
   const normalizedSelection = normalizeEnvKey(`${planId}_${billing}`)
   const keys = [
-    `CREEM_PRODUCT_AIORCHESTRATION_${tier}_${cycle}`,
-    `CREEM_PRODUCT_ID_AIORCHESTRATION_${normalizedSelection}`,
-    `CREEM_PRODUCT_ID_${normalizedSelection}`,
-    `CREEM_PRODUCT_ID_${tier}`,
-    'CREEM_PRODUCT_ID',
+    `POLAR_PRODUCT_AIORCHESTRATION_${tier}_${cycle}`,
+    `POLAR_PRODUCT_ID_AIORCHESTRATION_${normalizedSelection}`,
+    `POLAR_PRODUCT_ID_${normalizedSelection}`,
+    `POLAR_PRODUCT_ID_${tier}`,
+    'POLAR_PRODUCT_ID',
   ]
 
   for (const key of keys) {
@@ -182,7 +182,7 @@ function resolveConfiguredProductId(env, planId, billing) {
   return ''
 }
 
-async function requestCreemJson(apiKey, url, body) {
+async function requestPolarJson(apiKey, url, body) {
   const response = await fetch(url, {
     method: 'POST',
     headers: {
@@ -205,8 +205,8 @@ async function requestCreemJson(apiKey, url, body) {
   if (!response.ok) {
     throw new Error(
       payload && typeof payload === 'object'
-        ? payload.message || payload.error || 'Creem request failed.'
-        : 'Creem request failed.',
+        ? payload.message || payload.error || 'Polar request failed.'
+        : 'Polar request failed.',
     )
   }
 
@@ -226,7 +226,7 @@ async function handleCheckout(request, env, requestUrl) {
     return jsonResponse({ ok: false, error: 'Method not allowed.' }, 405, request)
   }
 
-  const apiKey = await firstSecretEnv(env, 'API_PROD_KEY', 'CREEM_API_KEY', 'CREEM_KEY')
+  const apiKey = await firstSecretEnv(env, 'API_PROD_KEY', 'POLAR_API_KEY', 'POLAR_KEY')
   if (!apiKey) {
     return jsonResponse({ ok: false, error: 'Payment is not configured yet.' }, 503, request)
   }
@@ -246,7 +246,7 @@ async function handleCheckout(request, env, requestUrl) {
   const successUrl = `${resolvePublicAppOrigin(requestUrl)}/checkout/done/`
 
   try {
-    const checkout = await requestCreemJson(apiKey, `${resolveCreemBase(env)}/v1/checkouts`, {
+    const checkout = await requestPolarJson(apiKey, `${resolvePolarBase(env)}/v1/checkouts`, {
       product_id: productId,
       units: 1,
       success_url: successUrl,
@@ -259,8 +259,8 @@ async function handleCheckout(request, env, requestUrl) {
       },
     })
     const checkoutUrl = extractCheckoutUrl(checkout)
-    if (!checkoutUrl) throw new Error('Creem did not return a checkout URL.')
-    return jsonResponse({ ok: true, checkoutUrl, provider: 'creem', planId: plan.id, billing, returnUrl: successUrl }, 200, request)
+    if (!checkoutUrl) throw new Error('Polar did not return a checkout URL.')
+    return jsonResponse({ ok: true, checkoutUrl, provider: 'polar', planId: plan.id, billing, returnUrl: successUrl }, 200, request)
   } catch {
     return jsonResponse({ ok: false, error: 'Secure checkout could not be created yet.' }, 502, request)
   }
@@ -272,7 +272,7 @@ function handleRuntime(request, requestUrl) {
       ok: true,
       publicAppOrigin: resolvePublicAppOrigin(requestUrl),
       deployment: 'cloudflare-workers-assets',
-      paymentProvider: 'creem',
+      paymentProvider: 'polar',
       defaultPlan: 'pro',
       defaultBilling: 'annual',
       annualDiscount: '50%',
@@ -401,8 +401,8 @@ export async function handleRequest(request, env) {
   const requestUrl = new URL(request.url)
 
   if (request.method === 'OPTIONS') return handleOptions(request)
-  if (requestUrl.pathname === '/api/nowpayments-checkout') {
-    return handleNowPaymentsCheckout(request, env, {
+  if (requestUrl.pathname === '/api/polar-checkout') {
+    return handlePolarCheckout(request, env, {
       plans: planCatalog,
       defaultPlanId: 'pro',
       siteName: 'aiorchestration',
@@ -413,7 +413,7 @@ export async function handleRequest(request, env) {
     })
   }
 
-  if (requestUrl.pathname === '/api/runtime') return handleRuntime(request, requestUrl)
+  if (requestUrl.pathname === '/api/runtime') return handleRuntime(request, env, requestUrl)
   if (requestUrl.pathname === '/api/checkout') return handleCheckout(request, env, requestUrl)
   if (requestUrl.pathname === '/api/analytics/events') return handleAnalytics(request, env)
 

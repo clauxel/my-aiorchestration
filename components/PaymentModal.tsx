@@ -25,12 +25,12 @@ function centeredPopupFeatures(width = 780, height = 900) {
   return `width=${width},height=${height},left=${left},top=${top},scrollbars=yes,resizable=yes`;
 }
 
-function writeLoadingPage(popup: Window | null, planName: string, provider: "creem" | "nowpayments") {
+function writeLoadingPage(popup: Window | null, planName: string, provider: "polar" | "polar") {
   if (!popup) return;
 
   try {
     popup.document.title = "Opening secure checkout";
-    const providerName = provider === "nowpayments" ? "NOWPayments" : "Creem";
+    const providerName = provider === "polar" ? "Polar" : "Polar";
     popup.document.body.innerHTML =
       `<main style="min-height:100vh;display:grid;place-items:center;background:#0a0a1a;color:#f8fafc;font-family:ui-sans-serif,system-ui,sans-serif;text-align:center;padding:32px">` +
       `<section><h1 style="font-size:22px;margin:0 0 8px">Opening secure checkout...</h1>` +
@@ -89,17 +89,17 @@ export default function PaymentModal({
     };
   });
 
-  async function openCheckout(provider: "creem" | "nowpayments" = "nowpayments") {
+  async function openCheckout(provider: "polar" | "polar" = "polar") {
     setStatus("opening");
     setError("");
     trackEvent("checkout_open_start", { plan: planId, billing, paymentProvider: provider });
 
-    const popup = window.open("", provider === "nowpayments" ? "aiorchestration_nowpayments_checkout" : "aiorchestration_creem_checkout", centeredPopupFeatures());
+    const popup = window.open("", provider === "polar" ? "aiorchestration_polar_checkout" : "aiorchestration_polar_checkout", centeredPopupFeatures());
     popupRef.current = popup;
     writeLoadingPage(popup, planName, provider);
 
     try {
-      const response = await fetch(provider === "nowpayments" ? "/api/nowpayments-checkout" : "/api/checkout", {
+      const response = await fetch(provider === "polar" ? "/api/polar-checkout" : "/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ planId, billing }),
@@ -198,14 +198,14 @@ export default function PaymentModal({
           {status === "ready" ? (
             <div className="grid gap-3">
               <button
-                onClick={() => void openCheckout("nowpayments")}
+                onClick={() => void openCheckout("polar")}
                 className="w-full py-4 rounded-xl font-bold text-white text-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
                 style={{ background: "linear-gradient(135deg, #6366f1, #8b5cf6)" }}
               >
-                Checkout with NOWPayments -&gt;
+                Checkout with Polar -&gt;
               </button>
               <button
-                onClick={() => void openCheckout("creem")}
+                onClick={() => void openCheckout("polar")}
                 className="w-full py-4 rounded-xl border border-white/10 bg-slate-900 font-bold text-white text-base transition-all duration-200 hover:bg-slate-800"
               >
                 Try card checkout
@@ -232,7 +232,7 @@ export default function PaymentModal({
             <div className="text-center py-3">
               <p className="text-sm text-red-300 font-medium">{error || "Checkout needs another try."}</p>
               <button
-                onClick={() => void openCheckout("nowpayments")}
+                onClick={() => void openCheckout("polar")}
                 className="mt-4 w-full py-3 rounded-xl font-semibold text-white bg-indigo-600 hover:bg-indigo-500"
               >
                 Try again
@@ -241,7 +241,7 @@ export default function PaymentModal({
           )}
 
           <p className="text-center text-xs text-slate-600 mt-4">
-            Powered by Creem - SSL encrypted - PCI compliant
+            Powered by Polar - SSL encrypted - PCI compliant
           </p>
         </div>
       </div>

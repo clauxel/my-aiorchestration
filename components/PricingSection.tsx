@@ -36,10 +36,10 @@ function writeCheckoutLoadingPage(popup: Window | null, planName: string) {
   if (!popup) return;
 
   try {
-    popup.document.title = "Opening NOWPayments checkout";
+    popup.document.title = "Opening Polar checkout";
     popup.document.body.innerHTML =
       `<main style="min-height:100vh;display:grid;place-items:center;background:#0a0a1a;color:#f8fafc;font-family:ui-sans-serif,system-ui,sans-serif;text-align:center;padding:32px">` +
-      `<section><h1 style="font-size:22px;margin:0 0 8px">Opening NOWPayments checkout...</h1>` +
+      `<section><h1 style="font-size:22px;margin:0 0 8px">Opening Polar checkout...</h1>` +
       `<p style="margin:0;color:#cbd5e1">Preparing your ${planName} payment window.</p></section></main>`;
   } catch {}
 }
@@ -191,11 +191,11 @@ export default function PricingSection() {
     });
 
     const billingPeriod = isAnnual ? "annual" : "monthly";
-    const popup = window.open("", "aiorchestration_nowpayments_checkout", checkoutPopupFeatures());
+    const popup = window.open("", "aiorchestration_polar_checkout", checkoutPopupFeatures());
     writeCheckoutLoadingPage(popup, plan.name);
 
     try {
-      const response = await fetch("/api/nowpayments-checkout", {
+      const response = await fetch("/api/polar-checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ planId: plan.key, billing: billingPeriod }),
@@ -215,7 +215,7 @@ export default function PricingSection() {
       trackEvent("checkout_popup_opened", {
         plan: plan.key,
         billing_period: billingPeriod,
-        paymentProvider: "nowpayments",
+        paymentProvider: "polar",
         location: "pricing_card",
       });
     } catch {
@@ -226,7 +226,7 @@ export default function PricingSection() {
       trackEvent("checkout_error", {
         plan: plan.key,
         billing_period: billingPeriod,
-        paymentProvider: "nowpayments",
+        paymentProvider: "polar",
         location: "pricing_card",
       });
     }
